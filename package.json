@@ -1,5 +1,5 @@
 {
-  "name": "cdr-app",
+  "name": "parking-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
