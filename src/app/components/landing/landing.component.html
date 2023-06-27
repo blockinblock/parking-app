@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="header mat-display-3">Parking Records</div>
+
+  <div data-test="login" class="login">
+    <mat-card>
+      <mat-card-content>
+        <form class="login__form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <mat-form-field>
+            <mat-label class="username">Username</mat-label>
+            <input data-test="username" matInput ngModel name="username" placeholder="foo" aria-label="Username">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input data-test="password" type="password" matInput ngModel name="password" placeholder="bar" aria-label="Password">
+          </mat-form-field>
+          <button mat-raised-button color="accent" aria-label="Login">Login</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <div data-test="fail-message" [ngClass]="[ !showAuthMsg ? 'login__hide-message' :'' ]">
+      <app-message  [color]="'#fff'" [message]="'You are not authorised!'"></app-message>
+    </div>
+  </div>
+  <div class="credit">Photo by Stanisław Gregor on Unsplash</div>
+</div>

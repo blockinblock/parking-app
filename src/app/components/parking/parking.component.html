@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="parking">
+    <div class="parking__hdr mat-display-3"
+      [ngClass]="[ isLarge ? 'mat-display-2' : '', isSmall ? 'mat-display-1' : '' ]">
+      Parking Records
+    </div>
+
+    <!-- FILTER SECTION -->
+    <div class="parking__filter">
+      <form class="parking__filter-form" (ngSubmit)="submitForm(f)" #f="ngForm">
+        <div class="parking__filter-form--background"></div>
+        <mat-form-field>
+          <mat-label>Enter vehicle id</mat-label>
+          <input data-test="filter-input"
+            aria-label="Filter text"
+            matInput placeholder="Example: B 12345"
+            ngModel
+            name="vehicleId">
+        </mat-form-field>
+
+        <ng-container *ngIf="!isMedium; else roundedFilters">
+          <button data-test="filter-btn" class="parking__filter-btn" mat-raised-button color="accent"
+            aria-label="Filter list">
+            Filter
+          </button>
+          <button data-test="reset-btn" class="parking__filter-btn" mat-raised-button color="accent"
+            aria-label="Refresh list" (click)="resetList()">
+            Reset
+          </button>
+        </ng-container>
+        <ng-template #roundedFilters>
+          <button class="parking__filter-btn-round" mat-mini-fab color="accent" aria-label="Filter list">
+            <mat-icon>filter_list</mat-icon>
+          </button>
+          <button class="parking__filter-btn-round" mat-mini-fab color="accent" aria-label="Refresh list" (click)="resetList()">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </ng-template>
+      </form>
+
+      <button data-test="logout-btn" *ngIf="!isMedium; else roundedLogout" aria-label="Logout"
+        class="parking__filter-btn-logout" mat-raised-button color="accent" (click)="logout()">
+        Logout
+      </button>
+      <ng-template #roundedLogout>
+        <button class="parking__filter-btn-round-logout" mat-mini-fab color="accent" aria-label="Logout" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </ng-template>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="parking__table">
+      <mat-table data-test="table" class="parking__table--transparent" [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="sessionId">
+          <mat-header-cell *matHeaderCellDef>Session Id</mat-header-cell>
+          <mat-cell data-test="cell" *matCellDef="let element">{{ element.sessionId }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="vehicleId">
+          <mat-header-cell *matHeaderCellDef>Vehicle Id</mat-header-cell>
+          <mat-cell data-test="cell" *matCellDef="let element">{{ element.vehicleId }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="startTime">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Start Time</mat-header-cell>
+          <mat-cell data-test="cell" *matCellDef="let element">{{ element.startTime }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="endTime">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>End Time</mat-header-cell>
+          <mat-cell data-test="cell" *matCellDef="let element">{{ element.endTime }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cost">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Total Cost</mat-header-cell>
+          <mat-cell data-test="cell" *matCellDef="let element">{{ element.cost }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+        <mat-row data-test="row" *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+      </mat-table>
+
+      <div class="parking__table-spinner" *ngIf="isFetching">
+        <mat-spinner [color]="'accent'"></mat-spinner>
+      </div>
+
+      <app-message *ngIf="noRecords" [message]="noRecordsMsg"></app-message>
+    </div>
+
+    <div class="parking__paginator">
+      <mat-paginator [length]="dataSource.data.length"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]" [color]=""
+        aria-label="Select page">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

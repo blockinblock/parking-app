@@ -1,0 +1,55 @@
+// CUSTOM MATERIAL THEME
+@use '~@angular/material' as mat;
+@include mat.core();
+
+$test-primary: mat.define-palette(mat.$blue-palette, A700, A100, A700);
+$test-accent: mat.define-palette(mat.$light-green-palette, A200, A100, A700);
+$test-warn: mat.define-palette(mat.$red-palette);
+
+$test-theme: mat.define-light-theme((
+  color: (
+    primary: $test-primary,
+    accent: $test-accent,
+    warn: $test-warn,
+  )
+));
+
+@include mat.all-component-themes($test-theme);
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// COLOR VARIABLES
+$color-white: #fff;
+$color-green: #a8d161;
+$color-blue: #06afd4;
+$color-red: #ff6600;
+
+
+// MIXINS
+@mixin center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+@mixin hero {
+  background-image: url(../../../assets/hero.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  opacity: .85;
+}
+
+@mixin header-txt {
+  background-image: linear-gradient(to right top, $color-green, $color-blue);
+  color: transparent;
+  -webkit-background-clip: text;
+  padding: 1vw;
+  margin-bottom: 2vh;
+  text-align: center;
+}
+
