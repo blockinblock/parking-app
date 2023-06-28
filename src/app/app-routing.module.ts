@@ -10,7 +10,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'parking', canActivate: [AuthGuardService], component: ParkingComponent },
-  { path: 'not-found', component: ErrorPageComponent, data: {message: 'Oops something went wrong 🫤'} },
+  { path: 'not-found', component: ErrorPageComponent, data: {message: 'Oops something went wrong 😕'} },
   { path: '**', redirectTo: '/not-found' }
 ];
 
