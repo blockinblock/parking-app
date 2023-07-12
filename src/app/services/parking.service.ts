@@ -1,17 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, delay } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError, map, delay } from "rxjs/operators";
 
-import { environment } from '../../environments/environment';
-import { Parking } from '../models/parking.model';
+import { environment } from "../../environments/environment";
+import { Parking } from "../models/parking.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ParkingService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    * "Dummy" endpoint for fetching all parking records.
@@ -19,14 +18,12 @@ export class ParkingService {
    */
   fetchParkingList(): Observable<any> {
     // .5 second delay to simulate fetch from backend
-    return this.http
-      .get(environment.url)
-      .pipe(
-        delay(500),
-        catchError(errorRes => {
-          return throwError(errorRes);
-        })
-      );
+    return this.http.get(environment.url).pipe(
+      delay(500),
+      catchError((errorRes) => {
+        return throwError(errorRes);
+      })
+    );
   }
 
   /**
@@ -37,16 +34,16 @@ export class ParkingService {
    */
   fetchParkingListById(search: string): Observable<any> {
     // .5 second delay to simulate fetch from backend
-    return this.http
-      .get(environment.url)
-      .pipe(
-        delay(500),
-        map((responseData: Parking[]) => {
-          return responseData.filter(item => item.vehicleId.includes(search.toUpperCase()));
-        }),
-        catchError(errorRes => {
-          return throwError(errorRes);
-        })
-      );
+    return this.http.get(environment.url).pipe(
+      delay(500),
+      map((responseData: Parking[]) => {
+        return responseData.filter((item) =>
+          item.vehicleId.includes(search.toUpperCase())
+        );
+      }),
+      catchError((errorRes) => {
+        return throwError(errorRes);
+      })
+    );
   }
 }
