@@ -42,7 +42,7 @@ export class ParkingService {
       .pipe(
         delay(500),
         map((responseData: Parking[]) => {
-          return responseData.filter(item => item.vehicleId.includes(search));
+          return responseData.filter(item => item.vehicleId.includes(search.toUpperCase()));
         }),
         catchError(errorRes => {
           return throwError(errorRes);
