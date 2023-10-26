@@ -53,12 +53,13 @@
       }
     }
 
-    &__table {
+    &__container {
       flex-grow: 2;
       overflow: auto;
 
-      &--transparent {
+      &-table {
         opacity: .8;
+        width: 100%;
       }
 
       &-spinner {
