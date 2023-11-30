@@ -21,6 +21,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { MessageComponent } from './components/message/message.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { AuthService } from './services/auth.service';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthService } from './services/auth.service';
     ErrorPageComponent,
     LandingComponent,
     MessageComponent,
-    ParkingComponent
+    ParkingComponent,
+    UserComponent
   ],
   imports: [
     AppRoutingModule,

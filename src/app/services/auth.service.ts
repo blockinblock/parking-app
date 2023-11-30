@@ -1,28 +1,33 @@
+import { User } from '../models/user.model';
+
 /**
  * Dummy auth service for testing.
  */
 export class AuthService {
-  public loggedIn = false;
+  loggedIn = false;
 
-  public isAuthenticated(): Promise<any> {
+  user = new User('Bob', '123', 'https://i.pravatar.cc/100?img=11');
+
+  isAuthenticated(): Promise<any> {
     const promise = new Promise((resolve, reject) => {
       setTimeout(() => {
         const status = localStorage.getItem('token');
-        status === 'true' ? this.loggedIn = true : this.loggedIn = false;
+        status === 'true' ? (this.loggedIn = true) : (this.loggedIn = false);
         resolve(this.loggedIn);
       }, 500);
     });
     return promise;
   }
 
-  public login(username: string, password: string): void {
-    if (username === "foo" && password === "bar") {
+  login(username: string, password: string) {
+    if (password === this.user.password) {
+      this.user.name = username;
       this.loggedIn = true;
     }
     localStorage.setItem('token', this.loggedIn.toString());
   }
 
-  public logout(): void {
+  logout() {
     this.loggedIn = false;
     localStorage.removeItem('token');
   }

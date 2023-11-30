@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,22 +7,16 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  styleUrls: ['./landing.component.scss'],
 })
-export class LandingComponent implements OnInit {
-  @ViewChild('f', { static: false }) signupForm: NgForm;
+export class LandingComponent {
+  @ViewChild('f', { static: false }) signupForm!: NgForm;
 
-  public showAuthMsg = false;
+  showAuthMsg = false;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService
-  ) { }
+  constructor(private router: Router, public authService: AuthService) {}
 
-  ngOnInit(): void {
-  }
-
-  public onSubmit(form: NgForm): void {
+  public onSubmit(form: NgForm) {
     const username = form.form.value.username;
     const password = form.form.value.password;
 

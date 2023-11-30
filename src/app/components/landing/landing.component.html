@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="header mat-display-3">Parking Records</div>
+  <div class="header mat-headline-2">Parking Records</div>
 
   <div data-test="login" class="login">
     <mat-card>
@@ -7,20 +7,57 @@
         <form class="login__form" (ngSubmit)="onSubmit(f)" #f="ngForm">
           <mat-form-field>
             <mat-label class="username">Username</mat-label>
-            <input data-test="username" matInput ngModel name="username" placeholder="foo" aria-label="Username">
+            <input
+              data-test="username"
+              matInput
+              ngModel
+              name="username"
+              aria-label="Username"
+            />
           </mat-form-field>
           <mat-form-field>
             <mat-label>Password</mat-label>
-            <input data-test="password" type="password" matInput ngModel name="password" placeholder="bar" aria-label="Password">
+            <input
+              data-test="password"
+              type="password"
+              matInput
+              ngModel
+              name="password"
+              [placeholder]="authService.user.password"
+              aria-label="Password"
+            />
           </mat-form-field>
-          <button mat-raised-button color="accent" aria-label="Login">Login</button>
+          <button mat-raised-button color="accent" aria-label="Login">
+            LOGIN
+          </button>
         </form>
       </mat-card-content>
     </mat-card>
 
-    <div data-test="fail-message" [ngClass]="[ !showAuthMsg ? 'login__hide-message' :'' ]">
-      <app-message  [color]="'#fff'" [message]="'You are not authorised!'"></app-message>
+    <div
+      data-test="fail-message"
+      [ngClass]="[!showAuthMsg ? 'login__hide-message' : '']"
+    >
+      <app-message
+        [color]="'#fff'"
+        [message]="'You are not authorised!'"
+      ></app-message>
     </div>
   </div>
-  <div class="credit">Photo by Stanisław Gregor on Unsplash</div>
+  <div class="credit">
+    <span>
+      Photo by
+      <a
+        href="https://unsplash.com/@marcus_wallis?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+        target="_blank"
+        >Marcus Wallis</a
+      >
+      on
+      <a
+        href="https://unsplash.com/photos/gray-concrete-parking-area-under-blue-building-YghnwsgQX_o?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+        target="_blank"
+        >Unsplash</a
+      >
+    </span>
+  </div>
 </div>

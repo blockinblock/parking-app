@@ -1,96 +1,37 @@
 <div class="container">
   <div class="parking">
     <div
-      class="parking__hdr mat-display-3"
+      class="parking__title mat-headline-2"
       [ngClass]="[
-        isLarge ? 'mat-display-2' : '',
-        isSmall ? 'mat-display-1' : ''
+        isLarge ? 'mat-headline-3' : '',
+        isMedium ? 'mat-headline-4' : ''
       ]"
     >
       Parking Records
     </div>
 
-    <!-- FILTER SECTION -->
-    <div class="parking__filter">
-      <form class="parking__filter-form" (ngSubmit)="submitForm(f)" #f="ngForm">
-        <div class="parking__filter-form--background"></div>
-        <mat-form-field>
-          <mat-label>Enter vehicle id</mat-label>
-          <input
-            data-test="filter-input"
-            aria-label="Filter text"
-            matInput
-            placeholder="Example: B 12345"
-            ngModel
-            name="vehicleId"
-          />
-        </mat-form-field>
-
-        <ng-container *ngIf="!isMedium; else roundedFilters">
-          <button
-            data-test="filter-btn"
-            class="parking__filter-btn"
-            mat-raised-button
-            color="accent"
-            aria-label="Filter list"
-          >
-            Filter
-          </button>
-          <button
-            data-test="reset-btn"
-            class="parking__filter-btn"
-            mat-raised-button
-            color="accent"
-            aria-label="Refresh list"
-            (click)="resetList()"
-          >
-            Reset
-          </button>
-        </ng-container>
-        <ng-template #roundedFilters>
-          <button
-            class="parking__filter-btn-round"
-            mat-mini-fab
-            color="accent"
-            aria-label="Filter list"
-          >
-            <mat-icon>filter_list</mat-icon>
-          </button>
-          <button
-            class="parking__filter-btn-round"
-            mat-mini-fab
-            color="accent"
-            aria-label="Refresh list"
-            (click)="resetList()"
-          >
-            <mat-icon>refresh</mat-icon>
-          </button>
-        </ng-template>
-      </form>
-
+    <mat-form-field data-test="form-input" class="parking__input">
+      <mat-label>Enter search criteria...</mat-label>
+      <input
+        data-test="filter-input"
+        aria-label="Filter text"
+        matInput
+        [(ngModel)]="searchValue"
+        name="vehicleId"
+        (keyup)="applyFilter($event)"
+      />
       <button
-        data-test="logout-btn"
-        *ngIf="!isMedium; else roundedLogout"
-        aria-label="Logout"
-        class="parking__filter-btn-logout"
-        mat-raised-button
-        color="accent"
-        (click)="logout()"
+        *ngIf="searchValue"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="reset()"
       >
-        Logout
+        <mat-icon>close</mat-icon>
       </button>
-      <ng-template #roundedLogout>
-        <button
-          class="parking__filter-btn-round-logout"
-          mat-mini-fab
-          color="accent"
-          aria-label="Logout"
-          (click)="logout()"
-        >
-          <mat-icon>logout</mat-icon>
-        </button>
-      </ng-template>
-    </div>
+    </mat-form-field>
+
+    <app-user></app-user>
 
     <!-- DATA TABLE -->
     <div class="parking__container">
@@ -116,13 +57,13 @@
         <ng-container matColumnDef="startTime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Time</th>
           <td mat-cell data-test="cell" *matCellDef="let element">
-            {{ element.startTime }}
+            {{ element.startTime | date:'d MMM yyyy, HH:mm':'GMT+2' }}
           </td>
         </ng-container>
         <ng-container matColumnDef="endTime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>End Time</th>
           <td mat-cell data-test="cell" *matCellDef="let element">
-            {{ element.endTime }}
+            {{ element.endTime | date:'d MMM yyyy, HH:mm':'GMT+2' }}
           </td>
         </ng-container>
         <ng-container matColumnDef="cost">

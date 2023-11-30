@@ -1,10 +1,15 @@
 # Parking Records Demo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.
 
 ## Setup
 
 1. Run `npm install` to install the necessary packages.
+
+## Using the app
+Credentials for logging into the app:
+- Username: \<Any name\>
+- Password: 123
 
 ## Development server
 
@@ -24,4 +29,4 @@ Run `npm run build:prod` to build the project for production. The build artifact
 
 ## Known Issues
 
-1. Filter button wrapping becomes untidy at screen widths smaller than 320px.
+1. Logout button overlaps header text at screen widths less than 330px.
