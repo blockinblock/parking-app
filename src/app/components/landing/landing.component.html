@@ -4,14 +4,13 @@
   <div data-test="login" class="login">
     <mat-card>
       <mat-card-content>
-        <form class="login__form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <form class="login__form" [formGroup]="form" (ngSubmit)="onSubmit()">
           <mat-form-field>
             <mat-label class="username">Username</mat-label>
             <input
               data-test="username"
               matInput
-              ngModel
-              name="username"
+              formControlName="username"
               aria-label="Username"
             />
           </mat-form-field>
@@ -21,8 +20,7 @@
               data-test="password"
               type="password"
               matInput
-              ngModel
-              name="password"
+              formControlName="password"
               [placeholder]="authService.user.password"
               aria-label="Password"
             />
@@ -40,7 +38,7 @@
     >
       <app-message
         [color]="'#fff'"
-        [message]="'You are not authorised!'"
+        [message]="this.notAuthorisedMsg"
       ></app-message>
     </div>
   </div>

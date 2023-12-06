@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,7 +17,6 @@ import { Parking } from '../../models/parking.model';
 export class ParkingComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('f', { static: false }) signupForm!: NgForm;
 
   private currentYear = new Date().getFullYear();
   private defaultSort: MatSortable = {
@@ -47,6 +46,10 @@ export class ParkingComponent implements OnInit, AfterViewInit {
   columnsToDisplay = ['sessionId', 'vehicleId', 'startTime', 'endTime', 'cost'];
   dataSource = new MatTableDataSource<any>();
 
+  form = this.fb.group({
+    searchValue: [''],
+  });
+
   isFetching = false;
   isLarge = false;
   isMedium = false;
@@ -54,10 +57,11 @@ export class ParkingComponent implements OnInit, AfterViewInit {
 
   noRecordsMsg = 'No records found!';
   noRecords = false;
-
-  searchValue = '';
+  pageSize = 10;
+  pageSizeOptions = [5, 10, 25, 100];
 
   constructor(
+    private fb: FormBuilder,
     private parkingService: ParkingService,
     private responsive: BreakpointObserver
   ) {}
@@ -72,12 +76,14 @@ export class ParkingComponent implements OnInit, AfterViewInit {
         this.isSmall = breakpoints[this.small];
       });
 
+    this.form.valueChanges.subscribe((value) => {
+      this.applyFilter(value.searchValue || '');
+    });
+
     this.fetchData();
   }
 
-  applyFilter(event: Event) {
-    let filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-
+  private applyFilter(filterValue: string) {
     if (filterValue.length >= 3 && this.months.includes(filterValue)) {
       filterValue = this.formatMonth(filterValue);
       this.dataSource.filterPredicate = this.filterByMonth;
@@ -92,7 +98,7 @@ export class ParkingComponent implements OnInit, AfterViewInit {
     this.isFetching = true;
     this.dataSource.data = [];
 
-    const sub = this.parkingService
+    this.parkingService
       .fetchParkingList()
       .pipe(first())
       .subscribe((response: Parking[]) => {
@@ -117,7 +123,7 @@ export class ParkingComponent implements OnInit, AfterViewInit {
   }
 
   reset() {
-    this.searchValue = '';
+    this.form.reset();
     this.dataSource.filter = '';
   }
 

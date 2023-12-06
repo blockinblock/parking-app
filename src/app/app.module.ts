@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -20,8 +20,9 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { LandingComponent } from './components/landing/landing.component';
 import { MessageComponent } from './components/message/message.component';
 import { ParkingComponent } from './components/parking/parking.component';
-import { AuthService } from './services/auth.service';
 import { UserComponent } from './components/user/user.component';
+
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,6 @@ import { UserComponent } from './components/user/user.component';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
@@ -46,7 +46,8 @@ import { UserComponent } from './components/user/user.component';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

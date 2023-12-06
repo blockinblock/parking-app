@@ -10,26 +10,27 @@
       Parking Records
     </div>
 
-    <mat-form-field data-test="form-input" class="parking__input">
-      <mat-label>Enter search criteria...</mat-label>
-      <input
-        data-test="filter-input"
-        aria-label="Filter text"
-        matInput
-        [(ngModel)]="searchValue"
-        name="vehicleId"
-        (keyup)="applyFilter($event)"
-      />
-      <button
-        *ngIf="searchValue"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="reset()"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+    <!-- SEARCH FORM -->
+    <form [formGroup]="form" class="parking__form">
+      <mat-form-field data-test="form-input" class="parking__form-input">
+        <mat-label>Enter search criteria ...</mat-label>
+        <input
+          data-test="filter-input"
+          aria-label="Filter text"
+          matInput
+          formControlName="searchValue"
+        />
+        <button
+          *ngIf="form.value.searchValue"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="reset()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
 
     <app-user></app-user>
 
@@ -57,13 +58,13 @@
         <ng-container matColumnDef="startTime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Time</th>
           <td mat-cell data-test="cell" *matCellDef="let element">
-            {{ element.startTime | date:'d MMM yyyy, HH:mm':'GMT+2' }}
+            {{ element.startTime | date : "d MMM yyyy, HH:mm" : "GMT+2" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="endTime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>End Time</th>
           <td mat-cell data-test="cell" *matCellDef="let element">
-            {{ element.endTime | date:'d MMM yyyy, HH:mm':'GMT+2' }}
+            {{ element.endTime | date : "d MMM yyyy, HH:mm" : "GMT+2" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="cost">
@@ -91,8 +92,8 @@
     <div class="parking__paginator">
       <mat-paginator
         [length]="dataSource.data.length"
-        [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 25, 100]"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
         [color]=""
         aria-label="Select page"
       >

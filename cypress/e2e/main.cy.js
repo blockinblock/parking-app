@@ -28,7 +28,7 @@ describe("Main functionality", () => {
   it("finds records for the given licence number", () => {
     const vehicleId = "B 049532";
 
-    cy.get("[data-test=filter-input]").type(`${vehicleId}{enter}`);
+    cy.get("[data-test=filter-input]").type(`${vehicleId}`);
     cy.get("[data-test=row]").should("have.length", 3);
     cy.get("[data-test=cell]").eq(1).should("contain", vehicleId);
   });
@@ -36,7 +36,7 @@ describe("Main functionality", () => {
   it("finds records for the given month", () => {
     const month = "jun";
 
-    cy.get("[data-test=filter-input]").type(`${month}{enter}`);
+    cy.get("[data-test=filter-input]").type(month);
     cy.get("[data-test=row]").should("have.length", 6);
   });
 
@@ -48,7 +48,7 @@ describe("Main functionality", () => {
   it("resets the filter", () => {
     const month = "jun";
 
-    cy.get("[data-test=filter-input]").type(`${month}{enter}`);
+    cy.get("[data-test=filter-input]").type(month);
     cy.get("[data-test=form-input]").find(".mdc-icon-button").click();
     cy.get("[data-test=table]").should("have.length", 1);
     cy.get("[data-test=row]").should("have.length", firstPage);
