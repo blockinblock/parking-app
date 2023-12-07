@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, delay } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { Parking } from '../models/parking.model';
+import { Parking } from './models/parking.model';
 
 @Injectable({
   providedIn: 'root',

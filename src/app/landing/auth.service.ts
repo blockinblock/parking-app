@@ -1,8 +1,13 @@
-import { User } from '../models/user.model';
+import { Injectable } from '@angular/core';
+
+import { User } from '../parking/models/user.model';
 
 /**
  * Dummy auth service for testing.
  */
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   loggedIn = false;
 

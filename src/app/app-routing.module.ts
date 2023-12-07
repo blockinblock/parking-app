@@ -1,18 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LandingComponent } from './components/landing/landing.component';
-import { ParkingComponent } from './components/parking/parking.component';
-import { ErrorPageComponent } from './components/error-page/error-page.component';
-
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './landing/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: LandingComponent },
-  { path: 'parking', canActivate: [AuthGuard], component: ParkingComponent },
+  {
+    path: '',
+    loadChildren: () =>
+      import('../app/landing/landing.module').then((m) => m.LandingModule),
+  },
+  {
+    path: 'parking',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('../app/parking/parking.module').then((m) => m.ParkingModule),
+  },
   {
     path: 'not-found',
-    component: ErrorPageComponent,
+    loadChildren: () =>
+      import('../app/error/error.module').then((m) => m.ErrorModule),
     data: { message: 'Oops something went wrong 😕' },
   },
   { path: '**', redirectTo: '/not-found' },

@@ -6,8 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { first } from 'rxjs/operators';
 
-import { ParkingService } from '../../services/parking.service';
-import { Parking } from '../../models/parking.model';
+import { ParkingService } from '../parking.service';
+import { Parking } from '../models/parking.model';
 
 @Component({
   selector: 'app-parking',
