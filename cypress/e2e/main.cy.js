@@ -2,7 +2,7 @@ import credentials from "../fixtures/credentials.json";
 
 describe("Main functionality", () => {
   const firstPage = 10;
-  const secondPage = 3;
+  const secondPage = 4;
   const secondPageId = 11;
 
   beforeEach(() => {

@@ -24,6 +24,7 @@ export class ParkingComponent implements OnInit, AfterViewInit {
     start: 'asc',
     disableClear: true,
   };
+
   private large = '(max-width: 765px)';
   private medium = '(max-width: 435px)';
   private small = '(max-width: 385px)';
@@ -80,16 +81,12 @@ export class ParkingComponent implements OnInit, AfterViewInit {
       this.applyFilter(value.searchValue || '');
     });
 
+    this.dataSource.filterPredicate = this.filterFunction.bind(this);
     this.fetchData();
   }
 
-  private applyFilter(filterValue: string) {
-    if (filterValue.length >= 3 && this.months.includes(filterValue)) {
-      filterValue = this.formatMonth(filterValue);
-      this.dataSource.filterPredicate = this.filterByMonth;
-    }
-
-    this.dataSource.filter = filterValue.toLowerCase().trim();
+  private applyFilter(value: string) {
+    this.dataSource.filter = value.toLowerCase().trim();
     this.noRecords = this.dataSource.filteredData.length === 0;
   }
 
@@ -111,8 +108,26 @@ export class ParkingComponent implements OnInit, AfterViewInit {
       });
   }
 
-  private filterByMonth(data: any, filter: string): boolean {
-    return data.startTime.includes(filter) || data.endTime.includes(filter);
+  private filterDefault(data: any, filter: string): boolean {
+    return (
+      data.sessionId.includes(filter) ||
+      data.vehicleId.toLowerCase().includes(filter) ||
+      data.startTime.includes(filter) ||
+      data.endTime.includes(filter) ||
+      data.cost.toString().includes(filter)
+    );
+  }
+
+  private filterFunction(data: any, filter: string): boolean {
+    if (filter.length === 3 && this.months.includes(filter)) {
+      const month = this.formatMonth(filter);
+      return (
+        data.startTime.includes(month) ||
+        data.endTime.includes(month) ||
+        this.filterDefault(data, filter)
+      );
+    }
+    return this.filterDefault(data, filter);
   }
 
   private formatMonth(mon: string): string {
