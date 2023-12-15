@@ -58,13 +58,13 @@
         <ng-container matColumnDef="startTime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Time</th>
           <td mat-cell data-test="cell" *matCellDef="let element">
-            {{ element.startTime | date : "d MMM yyyy, HH:mm" : "GMT+2" }}
+            {{ element.startTime | date : "d MMM yyyy, HH:mm" : "GMT" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="endTime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>End Time</th>
           <td mat-cell data-test="cell" *matCellDef="let element">
-            {{ element.endTime | date : "d MMM yyyy, HH:mm" : "GMT+2" }}
+            {{ element.endTime | date : "d MMM yyyy, HH:mm" : "GMT" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="cost">

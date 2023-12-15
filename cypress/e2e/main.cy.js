@@ -37,7 +37,7 @@ describe("Main functionality", () => {
     const month = "jun";
 
     cy.get("[data-test=filter-input]").type(month);
-    cy.get("[data-test=row]").should("have.length", 6);
+    cy.get("[data-test=row]").should("have.length", 5);
   });
 
   it("shows small logout button (small viewport)", () => {
