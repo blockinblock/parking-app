@@ -10,14 +10,17 @@ import { AuthService } from './auth.service';
 export class AuthGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isAuthenticated().then((authenticated: boolean) => {
-      if (authenticated) {
-        return true;
-      } else {
-        this.router.navigate(['/']);
-        return false;
-      }
+  canActivate(): Observable<boolean> {
+    return new Observable((subscriber) => {
+      this.authService.isAuthenticated().subscribe((authenticated: boolean) => {
+        if (authenticated) {
+          subscriber.next(true);
+        } else {
+          this.router.navigate(['/']);
+          subscriber.next(false);
+        }
+        subscriber.complete();
+      });
     });
   }
 }

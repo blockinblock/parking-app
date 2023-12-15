@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 import { User } from '../parking/models/user.model';
 
@@ -13,15 +14,10 @@ export class AuthService {
 
   user = new User('Bob', '123', 'https://i.pravatar.cc/100?img=11');
 
-  isAuthenticated(): Promise<any> {
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const status = localStorage.getItem('token');
-        status === 'true' ? (this.loggedIn = true) : (this.loggedIn = false);
-        resolve(this.loggedIn);
-      }, 500);
-    });
-    return promise;
+  isAuthenticated(): Observable<any> {
+    const status = localStorage.getItem('token');
+    status === 'true' ? (this.loggedIn = true) : (this.loggedIn = false);
+    return of(this.loggedIn);
   }
 
   login(username: string, password: string) {
