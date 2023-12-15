@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSort, MatSortable } from '@angular/material/sort';
@@ -8,13 +8,14 @@ import { first } from 'rxjs/operators';
 
 import { ParkingService } from '../parking.service';
 import { Parking } from '../models/parking.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-parking',
   templateUrl: './parking.component.html',
   styleUrls: ['./parking.component.scss'],
 })
-export class ParkingComponent implements OnInit, AfterViewInit {
+export class ParkingComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -24,6 +25,8 @@ export class ParkingComponent implements OnInit, AfterViewInit {
     start: 'asc',
     disableClear: true,
   };
+
+  private formSub!: Subscription;
 
   private large = '(max-width: 765px)';
   private medium = '(max-width: 435px)';
@@ -77,7 +80,7 @@ export class ParkingComponent implements OnInit, AfterViewInit {
         this.isSmall = breakpoints[this.small];
       });
 
-    this.form.valueChanges.subscribe((value) => {
+    this.formSub = this.form.valueChanges.subscribe((value) => {
       this.applyFilter(value.searchValue || '');
     });
 
@@ -145,5 +148,9 @@ export class ParkingComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnDestroy() {
+      this.formSub.unsubscribe();
   }
 }
