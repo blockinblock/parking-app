@@ -1,14 +1,20 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { ParkingService } from '../parking.service';
 import { Parking } from '../models/parking.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-parking',
@@ -18,6 +24,23 @@ import { Subscription } from 'rxjs';
 export class ParkingComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  columnsToDisplay = ['sessionId', 'vehicleId', 'startTime', 'endTime', 'cost'];
+  dataSource = new MatTableDataSource<any>();
+
+  form = this.fb.group({
+    searchValue: [''],
+  });
+
+  isFetching = false;
+  isLarge = false;
+  isMedium = false;
+  isSmall = false;
+
+  noRecordsMsg = 'No records found!';
+  noRecords = false;
+  pageSize = 10;
+  pageSizeOptions = [5, 10, 25, 100];
 
   private currentYear = new Date().getFullYear();
   private defaultSort: MatSortable = {
@@ -47,23 +70,6 @@ export class ParkingComponent implements OnInit, OnDestroy, AfterViewInit {
     'dec',
   ];
 
-  columnsToDisplay = ['sessionId', 'vehicleId', 'startTime', 'endTime', 'cost'];
-  dataSource = new MatTableDataSource<any>();
-
-  form = this.fb.group({
-    searchValue: [''],
-  });
-
-  isFetching = false;
-  isLarge = false;
-  isMedium = false;
-  isSmall = false;
-
-  noRecordsMsg = 'No records found!';
-  noRecords = false;
-  pageSize = 10;
-  pageSizeOptions = [5, 10, 25, 100];
-
   constructor(
     private fb: FormBuilder,
     private parkingService: ParkingService,
@@ -86,6 +92,20 @@ export class ParkingComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.dataSource.filterPredicate = this.filterFunction.bind(this);
     this.fetchData();
+  }
+
+  reset() {
+    this.form.reset();
+    this.dataSource.filter = '';
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnDestroy() {
+    this.formSub.unsubscribe();
   }
 
   private applyFilter(value: string) {
@@ -138,19 +158,5 @@ export class ParkingComponent implements OnInit, OnDestroy, AfterViewInit {
       new Date(Date.parse(`${mon} 1, ${this.currentYear}`)).getMonth() + 1;
     const monStr = monNum.toString().padStart(2, '0');
     return `-${monStr}-`;
-  }
-
-  reset() {
-    this.form.reset();
-    this.dataSource.filter = '';
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
-
-  ngOnDestroy() {
-      this.formSub.unsubscribe();
   }
 }

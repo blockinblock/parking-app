@@ -24,7 +24,7 @@ export class LandingComponent {
     private router: Router
   ) {}
 
-  public onSubmit() {
+  onSubmit() {
     const username = this.form.value.username || '';
     const password = this.form.value.password || '';
 
