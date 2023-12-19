@@ -1,7 +1,7 @@
 <div class="user" *ngIf="!isSmall">
   <div class="user__overlay">
-    <img [src]="authService.user.avatar" alt="User Image" />
-    <span data-test="welcome">Welcome, {{ authService.user.name }}</span>
+    <img [src]="user.avatar" alt="User Image" />
+    <span data-test="welcome">Welcome, {{ user.name }}</span>
     <button
       data-test="logout-btn-large"
       color="accent"
