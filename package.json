@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --configuration production",
-    "build-git-prod": "ng build --output-path ./docs/ --base-href /parking-app/",
+    "build-git": "ng build --output-path ./docs/ --base-href /parking-app/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "cypress:open": "cypress open"
