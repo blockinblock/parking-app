@@ -10,7 +10,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { first } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 import { ParkingService } from '../parking.service';
@@ -86,9 +86,11 @@ export class ParkingComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isSmall = breakpoints[this.small];
       });
 
-    this.formSub = this.form.valueChanges.subscribe((value) => {
-      this.applyFilter(value.searchValue || '');
-    });
+    this.formSub = this.form.valueChanges
+      .pipe(debounceTime(400), distinctUntilChanged())
+      .subscribe((value) => {
+        this.applyFilter(value.searchValue || '');
+      });
 
     this.dataSource.filterPredicate = this.filterFunction.bind(this);
     this.fetchData();
