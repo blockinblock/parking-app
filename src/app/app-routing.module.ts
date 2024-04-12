@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TestComponent } from './fixed/test/test.component';
 
 import { AuthGuard } from './landing/auth.guard';
 
@@ -21,6 +22,7 @@ const routes: Routes = [
       import('../app/error/error.module').then((m) => m.ErrorModule),
     data: { message: 'Oops something went wrong 😕' },
   },
+  {path: 'test', component: TestComponent},
   { path: '**', redirectTo: '/not-found' },
 ];
 
