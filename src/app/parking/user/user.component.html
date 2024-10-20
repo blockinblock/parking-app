@@ -1,0 +1,27 @@
+<div class="user" *ngIf="!isSmall">
+  <div class="user__overlay">
+    <img [src]="user.avatar" alt="User Image" />
+    <span data-test="welcome">Welcome, {{ user.name }}</span>
+    <button
+      data-test="logout-btn-large"
+      color="accent"
+      mat-raised-button
+      aria-label="Logout"
+      (click)="logout()"
+    >
+      LOGOUT
+    </button>
+  </div>
+</div>
+
+<button
+  data-test="logout-btn-small"
+  *ngIf="isSmall"
+  class="logout-btn-small"
+  color="accent"
+  mat-mini-fab
+  aria-label="Logout"
+  (click)="logout()"
+>
+  <mat-icon>logout</mat-icon>
+</button>

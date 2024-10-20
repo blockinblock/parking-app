@@ -1,0 +1,11 @@
+@import '../../../styles.scss';
+
+.container {
+  @include center-container;
+  background-image: linear-gradient(to right top, $color-green, $color-blue);
+  color: $color-white;
+}
+
+.message {
+  text-align: center;
+}

@@ -1,0 +1,58 @@
+// CUSTOM MATERIAL THEME
+@use '@angular/material' as mat;
+@include mat.core();
+
+$my-typography: mat.define-typography-config();
+@include mat.typography-hierarchy($my-typography);
+
+$test-primary: mat.define-palette(mat.$indigo-palette, A700, A100, A700);
+$test-accent: mat.define-palette(mat.$green-palette, A400, 400, 900);
+$test-warn: mat.define-palette(mat.$red-palette);
+
+$test-theme: mat.define-light-theme((
+  color: (
+    primary: $test-primary,
+    accent: $test-accent,
+    warn: $test-warn,
+  )
+));
+
+@include mat.all-component-themes($test-theme);
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// COLOR VARIABLES
+$color-black: #000;
+$color-white: #fff;
+$color-green: #00e676;
+$color-blue: #06afd4;
+
+$btn-font-size: .9rem;
+
+// MIXINS
+@mixin center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+@mixin hero {
+  background-image: url(../../../assets/hero.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+@mixin header-txt {
+  background-image: linear-gradient(to right top, $color-green, $color-blue);
+  color: transparent;
+  -webkit-background-clip: text;
+  padding: 1vw;
+  margin-bottom: 2vh;
+  text-align: center;
+}
+

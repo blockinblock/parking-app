@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="parking">
+    <div
+      class="parking__title mat-headline-2"
+      [ngClass]="[
+        isLarge ? 'mat-headline-3' : '',
+        isMedium ? 'mat-headline-4' : ''
+      ]"
+    >
+      Parking Records
+    </div>
+
+    <!-- SEARCH FORM -->
+    <form [formGroup]="form" class="parking__form">
+      <mat-form-field data-test="form-input" class="parking__form-input">
+        <mat-label>Enter search criteria ...</mat-label>
+        <input
+          data-test="filter-input"
+          aria-label="Filter text"
+          matInput
+          formControlName="searchValue"
+        />
+        <button
+          *ngIf="form.value.searchValue"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="reset()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+
+    <app-user></app-user>
+
+    <!-- DATA TABLE -->
+    <div class="parking__container">
+      <table
+        mat-table
+        data-test="table"
+        class="parking__container-table"
+        [dataSource]="dataSource"
+        matSort
+      >
+        <ng-container matColumnDef="sessionId">
+          <th mat-header-cell *matHeaderCellDef>Session Id</th>
+          <td mat-cell data-test="cell" *matCellDef="let element">
+            {{ element.sessionId }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="vehicleId">
+          <th mat-header-cell *matHeaderCellDef>Vehicle Id</th>
+          <td mat-cell data-test="cell" *matCellDef="let element">
+            {{ element.vehicleId }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="startTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Time</th>
+          <td mat-cell data-test="cell" *matCellDef="let element">
+            {{ element.startTime | date : "d MMM yyyy, HH:mm" : "GMT" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>End Time</th>
+          <td mat-cell data-test="cell" *matCellDef="let element">
+            {{ element.endTime | date : "d MMM yyyy, HH:mm" : "GMT" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="cost">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Cost</th>
+          <td mat-cell data-test="cell" *matCellDef="let element">
+            {{ element.cost }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          data-test="row"
+          *matRowDef="let row; columns: columnsToDisplay"
+        ></tr>
+      </table>
+
+      <div class="parking__container-spinner" *ngIf="isFetching">
+        <mat-spinner [color]="'accent'"></mat-spinner>
+      </div>
+
+      <app-message *ngIf="noRecords" [message]="noRecordsMsg"></app-message>
+    </div>
+
+    <div class="parking__paginator">
+      <mat-paginator
+        [length]="dataSource.data.length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [color]=""
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+[
+  {
+    "sessionId": "1",
+    "vehicleId": "HH YK 1230",
+    "startTime": "2023-01-06T15:45Z",
+    "endTime": "2023-01-06T17:00Z",
+    "cost": 50.34
+  },
+  {
+    "sessionId": "2",
+    "vehicleId": "B 049532",
+    "startTime": "2023-03-29T12:00Z",
+    "endTime": "2023-03-29T12:30Z",
+    "cost": 20.33
+  },
+  {
+    "sessionId": "3",
+    "vehicleId": "BN ES123",
+    "startTime": "2023-02-08T18:12Z",
+    "endTime": "2023-02-08T21:32Z",
+    "cost": 43.22
+  },
+  {
+    "sessionId": "4",
+    "vehicleId": "F 93454",
+    "startTime": "2023-06-12T07:32Z",
+    "endTime": "2023-06-12T08:12Z",
+    "cost": 10.07
+  },
+  {
+    "sessionId": "5",
+    "vehicleId": "OHV 37543",
+    "startTime": "2023-06-07T17:03Z",
+    "endTime": "2023-06-07T23:44Z",
+    "cost": 100.21
+  },
+  {
+    "sessionId": "6",
+    "vehicleId": "M 58433",
+    "startTime": "2023-06-01T12:45Z",
+    "endTime": "2023-06-01T13:54Z",
+    "cost": 15.32
+  },
+  {
+    "sessionId": "7",
+    "vehicleId": "BK ZH 454",
+    "startTime": "2023-05-28T10:00Z",
+    "endTime": "2023-05-28T11:12Z",
+    "cost": 35.43
+  },
+  {
+    "sessionId": "8",
+    "vehicleId": "KI NG 433",
+    "startTime": "2023-05-27T08:11Z",
+    "endTime": "2023-05-27T08:55Z",
+    "cost": 18.19
+  },
+  {
+    "sessionId": "9",
+    "vehicleId": "PA DT 876",
+    "startTime": "2023-05-11T15:23Z",
+    "endTime": "2023-05-11T16:01Z",
+    "cost": 60.21
+  },
+  {
+    "sessionId": "10",
+    "vehicleId": "B 48732",
+    "startTime": "2023-08-10T14:45Z",
+    "endTime": "2023-08-10T22:09Z",
+    "cost": 150.23
+  },
+  {
+    "sessionId": "11",
+    "vehicleId": "GD I2332",
+    "startTime": "2023-06-10T10:33Z",
+    "endTime": "2023-06-10T18:09Z",
+    "cost": 67.76
+  },
+  {
+    "sessionId": "12",
+    "vehicleId": "B 049532",
+    "startTime": "2023-06-14T11:54Z",
+    "endTime": "2023-06-14T12:34Z",
+    "cost": 8.54
+  },
+  {
+    "sessionId": "13",
+    "vehicleId": "B 049532",
+    "startTime": "2023-11-15T13:00Z",
+    "endTime": "2023-11-15T15:32Z",
+    "cost": 17.43
+  },
+  {
+    "sessionId": "14",
+    "vehicleId": "JAN 45678",
+    "startTime": "2023-12-02T08:54Z",
+    "endTime": "2023-12-02T17:23Z",
+    "cost": 90.12
+  }
+]

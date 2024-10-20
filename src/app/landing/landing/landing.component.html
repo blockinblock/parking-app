@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="header mat-headline-2">Parking Records</div>
+
+  <div data-test="login" class="login">
+    <mat-card>
+      <mat-card-content>
+        <form class="login__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <mat-form-field>
+            <mat-label class="username">Username</mat-label>
+            <input
+              data-test="username"
+              matInput
+              formControlName="username"
+              aria-label="Username"
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              data-test="password"
+              type="password"
+              matInput
+              formControlName="password"
+              [placeholder]="authService.user.password"
+              aria-label="Password"
+            />
+          </mat-form-field>
+          <button mat-raised-button color="accent" aria-label="Login">
+            LOGIN
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <div
+      data-test="fail-message"
+      [ngClass]="[!showAuthMsg ? 'login__hide-message' : '']"
+    >
+      <app-message
+        [color]="'#fff'"
+        [message]="this.notAuthorisedMsg"
+      ></app-message>
+    </div>
+  </div>
+  <div class="credit">
+    <span>
+      Photo by
+      <a
+        href="https://unsplash.com/@marcus_wallis?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+        target="_blank"
+        >Marcus Wallis</a
+      >
+      on
+      <a
+        href="https://unsplash.com/photos/gray-concrete-parking-area-under-blue-building-YghnwsgQX_o?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+        target="_blank"
+        >Unsplash</a
+      >
+    </span>
+  </div>
+</div>

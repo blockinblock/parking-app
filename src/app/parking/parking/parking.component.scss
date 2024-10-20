@@ -1,0 +1,57 @@
+@import "../../../styles.scss";
+
+.container {
+  @include hero;
+
+  .parking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    height: 100%;
+
+    &__title {
+      @include header-txt;
+      align-self: center;
+      margin: 0;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      &-input {
+        width: 50%;
+      }
+    }
+
+    &__container {
+      width: 99%;
+      flex-grow: 2;
+      overflow: auto;
+
+      &-table {
+        opacity: 0.8;
+        width: 100%;
+      }
+
+      &-spinner {
+        display: flex;
+        justify-content: center;
+        margin-top: 5vh;
+      }
+    }
+
+    &__paginator {
+      margin-top: 2vh;
+      opacity: 0.8;
+      width: 100vw;
+    }
+  }
+}
+
+.mat-column-sessionId {
+  text-align: center;
+}
